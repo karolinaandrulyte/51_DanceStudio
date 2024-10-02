@@ -17,7 +17,7 @@ import lt.ca.javau10.dancestudio.services.StudioService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class ApiController {
 	
 	@GetMapping("/jsonTeacher") // gaunam tiesiog student
@@ -68,12 +68,12 @@ public class ApiController {
 	
 //	4) Su postman turi veikti post užklausa, pridedanti vieną objektą ir įrašyti į DB
 	@PostMapping("/addTeacher")
-	public Teacher addNewTeacher(@RequestBody Teacher teacher) {
+	public Teacher addTeacher(@RequestBody Teacher teacher) {
 		return studioService.addTeacher(teacher);
 	}
 	
 	@PostMapping("/addStudent") 
-	public Student addNewTeacher(@RequestBody Student student) {
+	public Student addStudent(@RequestBody Student student) {
 		return studioService.addStudent(student);
 	}
 //	DeleteMapping pažymėtas endpoint turi ištrinti vieną objektą pagal id. (po to patikrinti DB ir susijusių objektų lenteles ir įrašus)
