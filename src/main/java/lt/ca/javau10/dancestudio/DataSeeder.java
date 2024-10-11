@@ -1,33 +1,46 @@
 package lt.ca.javau10.dancestudio;
 
 import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import lt.ca.javau10.dancestudio.entities.ERole;
+import lt.ca.javau10.dancestudio.entities.Role;
 import lt.ca.javau10.dancestudio.entities.Student;
 import lt.ca.javau10.dancestudio.entities.Teacher;
 import lt.ca.javau10.dancestudio.helpers.TimeSlot;
 import lt.ca.javau10.dancestudio.helpers.WorkTimeHelper;
+import lt.ca.javau10.dancestudio.repositories.RoleRepository;
 import lt.ca.javau10.dancestudio.repositories.StudentRepository;
 import lt.ca.javau10.dancestudio.repositories.TeacherRepository;
 
 @Component
 public class DataSeeder implements CommandLineRunner{
 
+	 private static final Logger logger = LoggerFactory.getLogger(DataSeeder.class);
+	 
 	 @Autowired
 	 StudentRepository studentRepo;
 	 
 	 @Autowired
 	 TeacherRepository teacherRepo;
+	 
+	 @Autowired
+	 RoleRepository roleRepository;
 	    
 	@Override
 	public void run(String... args) throws Exception {
-		
-
+			
+		seedStudentAndTeachers();		
+		seedRoles();
+	}
+	
+	void seedStudentAndTeachers() {
 		if (studentRepo.count() > 0)
-			return;
-		
-		if (teacherRepo.count() > 0)
 			return;
 		
 		Teacher teacher1 = new Teacher("Alice", "Johnson", "alice.johnson@example.com", "Experienced Dance Instructor", "Bachata", null, null); 
@@ -53,7 +66,24 @@ public class DataSeeder implements CommandLineRunner{
 
         // Save teachers with their work time slots and assigned students
         teacherRepo.saveAll(Arrays.asList(teacher1, teacher2, teacher3, teacher4));
+	}
+	
+	void seedRoles() {
+	
+		if (roleRepository.findByName(ERole.ROLE_ADMIN).isEmpty()) {
+            roleRepository.save(new Role(ERole.ROLE_ADMIN));
+            logger.info("ROLE_ADMIN added.");
+        }
         
+        if (roleRepository.findByName(ERole.ROLE_STUDENT).isEmpty()) {
+            roleRepository.save(new Role(ERole.ROLE_STUDENT));
+            logger.info("ROLE_STUDENT added.");
+        }
+        
+        if (roleRepository.findByName(ERole.ROLE_TEACHER).isEmpty()) {
+            roleRepository.save(new Role(ERole.ROLE_TEACHER));
+            logger.info("ROLE_TEACHER added.");
+        }		
 	}
 	
 	// Method to assign WorkTimeHelper slots to teachers

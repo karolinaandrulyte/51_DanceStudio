@@ -129,10 +129,6 @@ public class UserDto implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
-	public boolean isTeacher() { //checkBox teacher or not
-		return true;
-	}
 
 	  @Override
 	  public boolean equals(Object o) {
