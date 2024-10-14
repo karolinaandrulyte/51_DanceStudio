@@ -103,24 +103,22 @@ public class AuthService {
 	}
 
 	private Set<Role> getInitialRoles(SignupRequest signUpRequest) {
-		Set<String> strRoles = signUpRequest.getRole();
+//		Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        boolean isTeacher = true;
+        boolean isTeacher = signUpRequest.isTeacher(); 
+        logger.info("isTeacher value during registration: " + isTeacher);
         
+     // Assign either ROLE_TEACHER or ROLE_STUDENT based on the sign-up request
+        Optional<Role> userRole = isTeacher ? 
+            roleRepository.findByName(ERole.ROLE_TEACHER) : 
+            roleRepository.findByName(ERole.ROLE_STUDENT);
         
-        if (strRoles == null || strRoles.isEmpty()) {
-            Optional<Role> userRole = isTeacher? roleRepository.findByName(ERole.ROLE_TEACHER): roleRepository.findByName(ERole.ROLE_STUDENT);
-          
-            userRole.ifPresentOrElse( (u) -> roles.add(u), () -> new RuntimeException("Error: Role is not found."));      
-            
-        } else {
-            for (String role : strRoles) {
-                Role resolvedRole = roleRepository.findByName(ERole.valueOf("ROLE_" + role.toUpperCase()))
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                roles.add(resolvedRole);
-            }
-        }
+        // Ensure the role is found, otherwise throw an error
+        userRole.ifPresentOrElse(
+            roles::add, 
+            () -> { throw new RuntimeException("Error: Role is not found."); }
+        );
 		return roles;
 	}
 

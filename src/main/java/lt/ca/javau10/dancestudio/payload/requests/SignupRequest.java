@@ -1,17 +1,14 @@
 package lt.ca.javau10.dancestudio.payload.requests;
 
-import java.util.Set;
-
 public class SignupRequest {
 
 	private String username;
 	private String email;
 	private String firstName;
 	private String lastName;
-
-	private Set<String> role;
-
 	private String password;
+	
+	private boolean isTeacher;
 
 	public String getUsername() {
 		return username;
@@ -53,22 +50,18 @@ public class SignupRequest {
 		this.password = password;
 	}
 
-	public Set<String> getRole() {
-		return this.role;
-	}
+	public boolean isTeacher() {
+        return isTeacher;
+    }
 
-	public void setRole(Set<String> role) {
-		this.role = role;
-	}
-	
-	public boolean isTeacher() { //checkBox teacher or not
-		return true;
-	}
+    public void setIsTeacher(boolean isTeacher) {
+        this.isTeacher = isTeacher;
+    }
 
 	@Override
 	public String toString() {
 		return "SignupRequest [username=" + username + ", email=" + email + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", role=" + role + ", password=" + password + "]";
-	}	
-	
+				+ lastName + ", password=" + password + ", isTeacher=" + isTeacher + "]";
+	}
+    
 }

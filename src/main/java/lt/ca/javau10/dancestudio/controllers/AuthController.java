@@ -37,7 +37,7 @@ public class AuthController {
 	
 	@PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
-				logger.info("Trying to signup \n" + signUpRequest);
+				logger.info("Trying to signup good morning \n" + signUpRequest);
         try {
             MessageResponse response = authService.registerUser(signUpRequest);
             return ResponseEntity.ok(response);
