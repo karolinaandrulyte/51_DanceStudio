@@ -17,6 +17,11 @@ public class EntityMapper {
 		entity.setPassword(dto.getPassword());
 		entity.setFirstName(dto.getFirstName());
 		entity.setLastName(dto.getLastName());
+		
+		// Set roles if they are present in the DTO
+	    if (dto.getRoles() != null) {
+	        entity.setRoles(dto.getRoles()); // Ensure roles are being assigned
+	    }
 		return entity;		
 	}
 	//Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities)
