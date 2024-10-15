@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lt.ca.javau10.dancestudio.entities.ERole;
 import lt.ca.javau10.dancestudio.entities.UserDto;
 import lt.ca.javau10.dancestudio.services.UserService;
 
@@ -39,6 +40,18 @@ public class UserController {
 	public ResponseEntity<List<UserDto>> getAllUsers(){
 		List<UserDto> users = userService.getAllUsers();
 		return new ResponseEntity<>(users, HttpStatus.OK);	
+	}
+	
+	@GetMapping("/teachers")
+	public ResponseEntity<List<UserDto>> getTeachers() {
+	    List<UserDto> teachers = userService.getUsersByRole(ERole.ROLE_TEACHER);
+	    return new ResponseEntity<>(teachers, HttpStatus.OK);
+	}
+
+	@GetMapping("/students")
+	public ResponseEntity<List<UserDto>> getStudents() {
+	    List<UserDto> students = userService.getUsersByRole(ERole.ROLE_STUDENT);
+	    return new ResponseEntity<>(students, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

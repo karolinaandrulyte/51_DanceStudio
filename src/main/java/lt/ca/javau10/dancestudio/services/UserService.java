@@ -2,6 +2,7 @@ package lt.ca.javau10.dancestudio.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import lt.ca.javau10.dancestudio.entities.ERole;
 import lt.ca.javau10.dancestudio.entities.UserDto;
 import lt.ca.javau10.dancestudio.entities.UserEntity;
 import lt.ca.javau10.dancestudio.repositories.UserRepository;
@@ -79,6 +81,13 @@ public class UserService implements UserDetailsService {
 		
 		logger.info("Loaded :"+user.toString());
 		return entityMapper.toUserDto(user);
+	}
+
+	public List<UserDto> getUsersByRole(ERole roleName) {
+	    List<UserEntity> users = userRepository.findByRoles_Name(roleName);
+	    return users.stream()
+	                .map(entityMapper::toUserDto)
+	                .collect(Collectors.toList());
 	}
 
 }
