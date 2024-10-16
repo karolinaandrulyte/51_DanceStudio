@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -69,13 +70,15 @@ public class WebSecurityConfig {
              configuration.setAllowedHeaders(List.of("*"));
              return configuration;
          }))
-	         .authorizeHttpRequests(auth -> 
-	         auth.requestMatchers("/api/auth/**").permitAll()
-             .requestMatchers("/api/users/students").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEACHER") // Allow both roles
+	     .authorizeHttpRequests(auth -> 
+         auth.requestMatchers("/api/auth/**").permitAll() // Allow access to auth endpoints
+             .requestMatchers(HttpMethod.GET, "/api/users/students").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEACHER") // Allow both roles to view students
+             .requestMatchers(HttpMethod.GET, "/api/users/teachers/{teacherId}/students").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN") // Allow teachers to view assigned students
+             .requestMatchers(HttpMethod.PUT, "/api/users/students/{studentId}/assign/{teacherId}").hasAuthority("ROLE_TEACHER") // Allow only teachers to assign students
              .requestMatchers("/api/users/**").hasAuthority("ROLE_ADMIN") // Ensure only admins can access other user management routes
-             .requestMatchers("/api/test/*").authenticated()
-             .anyRequest().permitAll()
-	         )
+             .requestMatchers("/api/test/*").authenticated() // Require authentication for test routes
+             .anyRequest().permitAll() // Allow all other requests
+     )
 	         .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 	         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

@@ -95,5 +95,9 @@ public class UserService implements UserDetailsService {
 	    student.setAssignedTeacherId(teacherId);
 	    userRepository.save(student);
 	}
+	
+	public List<UserEntity> getAssignedStudents(Long teacherId) {
+	    return userRepository.findByAssignedTeacherId(teacherId);
+	}
 
 }

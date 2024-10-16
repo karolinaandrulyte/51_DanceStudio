@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.ca.javau10.dancestudio.entities.ERole;
 import lt.ca.javau10.dancestudio.entities.UserDto;
+import lt.ca.javau10.dancestudio.entities.UserEntity;
 import lt.ca.javau10.dancestudio.services.UserService;
 
 @RestController
@@ -46,6 +47,12 @@ public class UserController {
 	public ResponseEntity<List<UserDto>> getTeachers() {
 	    List<UserDto> teachers = userService.getUsersByRole(ERole.ROLE_TEACHER);
 	    return new ResponseEntity<>(teachers, HttpStatus.OK);
+	}
+	
+	@GetMapping("/teachers/{teacherId}/students")
+	public ResponseEntity<List<UserEntity>> getAssignedStudents(@PathVariable Long teacherId) {
+	    List<UserEntity> assignedStudents = userService.getAssignedStudents(teacherId);
+	    return ResponseEntity.ok(assignedStudents);
 	}
 
 	@GetMapping("/students")
