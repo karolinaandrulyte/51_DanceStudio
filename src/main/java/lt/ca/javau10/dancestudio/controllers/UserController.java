@@ -73,9 +73,20 @@ public class UserController {
 				.orElseGet( () -> ResponseEntity.notFound().build());
 	}
 	
+	@PutMapping("/students/{studentId}/assign/{teacherId}")
+	public ResponseEntity<Void> assignStudentToTeacher(
+	    @PathVariable Long studentId,
+	    @PathVariable Long teacherId) {
+	    
+	    userService.assignStudentToTeacher(studentId, teacherId);
+	    return ResponseEntity.ok().build();
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long id){
 		userService.deleteUser(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	
 }

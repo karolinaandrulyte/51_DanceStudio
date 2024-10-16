@@ -89,5 +89,11 @@ public class UserService implements UserDetailsService {
 	                .map(entityMapper::toUserDto)
 	                .collect(Collectors.toList());
 	}
+	
+	public void assignStudentToTeacher(Long studentId, Long teacherId) {
+	    UserEntity student = userRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
+	    student.setAssignedTeacherId(teacherId);
+	    userRepository.save(student);
+	}
 
 }

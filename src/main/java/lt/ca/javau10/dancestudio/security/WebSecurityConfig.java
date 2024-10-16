@@ -70,10 +70,11 @@ public class WebSecurityConfig {
              return configuration;
          }))
 	         .authorizeHttpRequests(auth -> 
-	             auth.requestMatchers("/api/auth/**").permitAll()
-	                 .requestMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
-	                 .requestMatchers("/api/test/*").authenticated()
-	                 .anyRequest().permitAll()
+	         auth.requestMatchers("/api/auth/**").permitAll()
+             .requestMatchers("/api/users/students").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEACHER") // Allow both roles
+             .requestMatchers("/api/users/**").hasAuthority("ROLE_ADMIN") // Ensure only admins can access other user management routes
+             .requestMatchers("/api/test/*").authenticated()
+             .anyRequest().permitAll()
 	         )
 	         .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 	         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

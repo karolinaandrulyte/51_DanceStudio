@@ -22,6 +22,8 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private Long assignedTeacherId; // Store the ID of the teacher who assigned this student
+	
 	@Column(nullable = false, unique = true)
 	private String username;
 	
@@ -107,6 +109,14 @@ public class UserEntity {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public Long getAssignedTeacherId() {
+		return assignedTeacherId;
+	}
+
+	public void setAssignedTeacherId(Long assignedTeacherId) {
+		this.assignedTeacherId = assignedTeacherId;
 	}
 
 	@Override
