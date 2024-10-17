@@ -100,4 +100,12 @@ public class UserService implements UserDetailsService {
 	    return userRepository.findByAssignedTeacherId(teacherId);
 	}
 
+	public void unassignStudentFromTeacher(Long studentId) {
+		UserEntity student = userRepository.findById(studentId)
+		        .orElseThrow(() -> new RuntimeException("Student not found"));
+
+		    student.setAssignedTeacherId(null); // Remove teacher assignment
+		    userRepository.save(student); // Persist the change
+	}
+
 }

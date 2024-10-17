@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,6 +95,11 @@ public class UserController {
 		userService.deleteUser(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+	@PreAuthorize("hasRole('TEACHER')")
+	@PutMapping("/students/{studentId}/unassign")
+	public ResponseEntity<?> unassignStudentFromTeacher(@PathVariable Long studentId) {
+	    userService.unassignStudentFromTeacher(studentId);
+	    return ResponseEntity.ok("Student unassigned successfully.");
+	}
 	
 }

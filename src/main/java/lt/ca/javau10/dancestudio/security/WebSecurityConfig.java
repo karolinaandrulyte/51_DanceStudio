@@ -75,6 +75,7 @@ public class WebSecurityConfig {
              .requestMatchers(HttpMethod.GET, "/api/users/students").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEACHER") // Allow both roles to view students
              .requestMatchers(HttpMethod.GET, "/api/users/teachers/{teacherId}/students").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN") // Allow teachers to view assigned students
              .requestMatchers(HttpMethod.PUT, "/api/users/students/{studentId}/assign/{teacherId}").hasAuthority("ROLE_TEACHER") // Allow only teachers to assign students
+             .requestMatchers(HttpMethod.PUT, "/api/users/students/{studentId}/unassign").hasAuthority("ROLE_TEACHER") // Only teachers can unassign students
              .requestMatchers("/api/users/**").hasAuthority("ROLE_ADMIN") // Ensure only admins can access other user management routes
              .requestMatchers("/api/test/*").authenticated() // Require authentication for test routes
              .anyRequest().permitAll() // Allow all other requests
