@@ -3,6 +3,7 @@ package lt.ca.javau10.dancestudio.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.slf4j.Logger;
 import lt.ca.javau10.dancestudio.entities.ERole;
 import lt.ca.javau10.dancestudio.entities.UserDto;
 import lt.ca.javau10.dancestudio.entities.UserEntity;
 import lt.ca.javau10.dancestudio.services.UserService;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -27,6 +30,8 @@ import lt.ca.javau10.dancestudio.services.UserService;
 public class UserController {
 
 	private final UserService userService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	public UserController(UserService userService) {
 		this.userService = userService;
@@ -71,14 +76,10 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDto> updateUser(
-										@PathVariable Long id, 
-										@RequestBody UserDto userDto){
-		Optional<UserDto> userInBox = userService.updateUser(id, userDto);
-		
-		return userInBox
-				.map( ResponseEntity::ok )
-				.orElseGet( () -> ResponseEntity.notFound().build());
+	public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+		logger.info("Got request " + userDto);
+	    
+	    return ResponseEntity.ok(userService.updateUser(id, userDto));  // Return UserDto as the response
 	}
 	
 	@PutMapping("/students/{studentId}/assign/{teacherId}")

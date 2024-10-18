@@ -54,6 +54,15 @@ public class UserDto implements UserDetails {
 		this.lastName = lastName;
 		this.password = password;
 	}
+	
+	public UserDto(UserEntity userEntity) {
+        this.username = userEntity.getUsername();
+        this.firstName = userEntity.getFirstName();
+        this.lastName = userEntity.getLastName();
+        this.email = userEntity.getEmail();
+        this.roles = userEntity.getRoles();
+        
+    }
 
 	public Long getId() {
 		return id;

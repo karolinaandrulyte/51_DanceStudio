@@ -54,19 +54,23 @@ public class UserService implements UserDetailsService {
 		return user.map(entityMapper::toUserDto);
 	}
 	
-	public Optional<UserDto> updateUser(Long id, UserDto userDto ){
-		
-		if( userRepository.existsById(id) ) {
-			UserEntity userEntityBeforeSave = entityMapper.toUserEntity(userDto);
-			userEntityBeforeSave.setId(id);
-			
-			UserEntity userEntityAfterSave = userRepository.save(userEntityBeforeSave);
-			return Optional.of( entityMapper.toUserDto(userEntityAfterSave));
-			
-		} else {
-			return Optional.empty();
-		}
-		
+	public class ResourceNotFoundException extends RuntimeException {
+	    public ResourceNotFoundException(String message) {
+	        super(message);
+	    }
+	}
+	
+	public UserDto updateUser(Long userId, UserDto userDto) {
+	    UserEntity user = userRepository.findById(userId)
+	        .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+
+	    // Update fields based on the UserDto (but not the password)
+	    user.setUsername(userDto.getUsername());
+	    user.setFirstName(userDto.getFirstName());
+	    user.setLastName(userDto.getLastName());
+	    user.setEmail(userDto.getEmail());
+
+	    return new UserDto(userRepository.save(user)); 		// userRepository.save(user);  // Return the updated user entity
 	}
 	
 	public void deleteUser(Long id) {
