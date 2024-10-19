@@ -23,8 +23,11 @@ public class UserDto implements UserDetails {
 	
 	private Set<Role> roles;
 	
-	@JsonIgnore
-	private String password; //One way road 
+	@JsonIgnore //One way road 
+	private String password; 
+	
+	private String danceStyle;
+	private String description;
 	
 	public UserDto() {}
 	
@@ -61,7 +64,6 @@ public class UserDto implements UserDetails {
         this.lastName = userEntity.getLastName();
         this.email = userEntity.getEmail();
         this.roles = userEntity.getRoles();
-        
     }
 
 	public Long getId() {
@@ -120,6 +122,22 @@ public class UserDto implements UserDetails {
 		this.password = password;
 	}
 	
+	public String getDanceStyle() {
+		return danceStyle;
+	}
+
+	public void setDanceStyle(String danceStyle) {
+		this.danceStyle = danceStyle;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override // serializable object, kad iseit i JSON, grazina objekta, kad grazinti authority
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles.stream()
@@ -160,7 +178,8 @@ public class UserDto implements UserDetails {
 	@Override
 	public String toString() {
 		return "UserDto [id=" + id + ", username=" + username + ", email=" + email + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", roles=" + roles + ", password=" + password + "]";
+				+ ", lastName=" + lastName + ", roles=" + roles + ", password=" + password + ", danceStyle="
+				+ danceStyle + ", description=" + description + "]";
 	}
 
 }

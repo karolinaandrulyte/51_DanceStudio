@@ -45,6 +45,12 @@ public class UserEntity {
     			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
+	@Column(length = 255)
+    private String danceStyle;
+
+    @Column(length = 500)
+    private String description;
+	
 	public UserEntity() {}
 
 	public UserEntity(String username, String password, String email, String firstName, String lastName) {
@@ -118,11 +124,27 @@ public class UserEntity {
 	public void setAssignedTeacherId(Long assignedTeacherId) {
 		this.assignedTeacherId = assignedTeacherId;
 	}
+	
+	public String getDanceStyle() {
+        return danceStyle;
+    }
+
+    public void setDanceStyle(String danceStyle) {
+        this.danceStyle = danceStyle;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 	@Override
 	public String toString() {
 		return "UserEntity [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", roles=" + roles + "]";
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", roles=" + roles + ", danceStyle=" + danceStyle + ",description=" + description + "]";
 	}	
 	
 }

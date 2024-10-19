@@ -111,5 +111,16 @@ public class UserService implements UserDetailsService {
 		    student.setAssignedTeacherId(null); // Remove teacher assignment
 		    userRepository.save(student); // Persist the change
 	}
+	
+	public UserEntity updateTeacherProfile(String username, UserDto userDto) {
+	    UserEntity user = userRepository.findByUsername(username)
+	        .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
+
+	    // Only update these fields for teachers
+	    user.setDanceStyle(userDto.getDanceStyle());
+	    user.setDescription(userDto.getDescription());
+
+	    return userRepository.save(user);
+	}
 
 }
