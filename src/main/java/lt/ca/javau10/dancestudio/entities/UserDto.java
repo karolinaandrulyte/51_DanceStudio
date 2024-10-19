@@ -39,7 +39,7 @@ public class UserDto implements UserDetails {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-
+	
 	public UserDto(Long id, String username, String email, String password, String firstName, String lastName, Set<Role> roles) {
 		this.id = id;
 		this.username = username;
@@ -48,6 +48,18 @@ public class UserDto implements UserDetails {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.roles = roles;
+	}
+
+	public UserDto(Long id, String username, String email, String password, String firstName, String lastName, Set<Role> roles, String danceStyle, String description) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.roles = roles;
+		this.danceStyle = danceStyle; 
+	    this.description = description;
 	}
 	
 	public UserDto(String username, String email, String firstName, String lastName, String password) {
@@ -64,6 +76,8 @@ public class UserDto implements UserDetails {
         this.lastName = userEntity.getLastName();
         this.email = userEntity.getEmail();
         this.roles = userEntity.getRoles();
+        this.danceStyle = userEntity.getDanceStyle(); 
+        this.description = userEntity.getDescription(); 
     }
 
 	public Long getId() {
