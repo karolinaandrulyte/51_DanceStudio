@@ -17,7 +17,7 @@ public class EntityMapper {
 		entity.setPassword(dto.getPassword());
 		entity.setFirstName(dto.getFirstName());
 		entity.setLastName(dto.getLastName());
-		entity.setDanceStyle(dto.getDanceStyle()); // Add this line
+		entity.setDanceStyle(dto.getDanceStyle()); 
 	    entity.setDescription(dto.getDescription());
 		
 		// Set roles if they are present in the DTO
@@ -37,8 +37,8 @@ public class EntityMapper {
 				entity.getFirstName(),
 				entity.getLastName(),
 				entity.getRoles(),
-				entity.getDanceStyle(), // Add this line
-		        entity.getDescription() // Add this line
+				entity.getDanceStyle(), 
+		        entity.getDescription() 
 				
 			);
 	}

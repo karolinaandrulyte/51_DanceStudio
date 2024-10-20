@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
-//klase, kuri aptarnauja rakta, sugeneruoja, uzkoduoja
+// serves (generates, codes) the key, 
 @Component
 public class JwtUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);

@@ -70,7 +70,7 @@ public class UserService implements UserDetailsService {
 	    user.setLastName(userDto.getLastName());
 	    user.setEmail(userDto.getEmail());
 
-	    return new UserDto(userRepository.save(user)); 		// userRepository.save(user);  // Return the updated user entity
+	    return new UserDto(userRepository.save(user)); // Return the updated user entity
 	}
 	
 	public void deleteUser(Long id) {

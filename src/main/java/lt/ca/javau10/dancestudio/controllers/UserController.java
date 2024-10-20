@@ -97,6 +97,7 @@ public class UserController {
 		userService.deleteUser(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
 	@PreAuthorize("hasRole('TEACHER')")
 	@PutMapping("/students/{studentId}/unassign")
 	public ResponseEntity<?> unassignStudentFromTeacher(@PathVariable Long studentId) {

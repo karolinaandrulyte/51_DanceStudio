@@ -31,9 +31,8 @@ public class Teacher {
     @Transient // because WorkTimeHelper is not an entity. It will not be persisted in the database, but can be used in the business logic layer.
     private List<WorkTimeHelper> workTimes = new ArrayList<>();
 	
-//	One-to-many relationship with Student
     @OneToMany
-    @JsonManagedReference // ryšio „owner side“ (valdančioje pusėje). Tai nurodo, kad šis objektas yra tas, kuris bus serializuojamas į JSON.
+    @JsonManagedReference // „owner side“ (on the owning side). Specifies that this object will be serialized to JSON.
     @JoinColumn(name = "teacher_id")  // This column will be added to the student table to reference the teacher, Student should not exist without Teacher
     private List<Student> students = new ArrayList<>();  // A teacher can have multiple students
 	

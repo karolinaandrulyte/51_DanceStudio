@@ -21,7 +21,7 @@ public class Student {
 	private String email;
 	
 	@ManyToOne
-	@JsonBackReference // ryšio „inverse side“ (priklausomoje pusėje). nurodo, kad objektas yra atvirkštinis ryšys ir nebus serializuojamas, išvengiant begalinės kilpos
+	@JsonBackReference // „inverse side“ of relationship (dependent side). indicates that the object is a reverse connection and will not be serialized, avoiding an infinite loop
     @JoinColumn(name = "teacher_id")
 	private Teacher teacher;
 	

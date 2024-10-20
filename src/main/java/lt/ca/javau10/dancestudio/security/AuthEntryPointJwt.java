@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
-//perraso klase, kuri rupisi, kad gautume JSON token
+// rewrites the class which is responsible to get JSON token
 	private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
 	 @Override

@@ -152,12 +152,12 @@ public class UserDto implements UserDetails {
 		this.description = description;
 	}
 
-	@Override // serializable object, kad iseit i JSON, grazina objekta, kad grazinti authority
+	@Override // serializable object to provide to JSON, returns an object to return authority
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles.stream()
                .map(role -> new SimpleGrantedAuthority(role.getName()))
                .collect(Collectors.toSet());
-	} // reikia kai turim kurti/prideti roles useriam
+	} // needed to create/add roles to users
 
 	@Override
 	public boolean isAccountNonExpired() {		
