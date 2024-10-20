@@ -74,6 +74,7 @@ public class WebSecurityConfig {
          auth.requestMatchers("/api/auth/**").permitAll() // Allow access to auth endpoints
              .requestMatchers(HttpMethod.GET, "/api/users/students").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEACHER") // Allow both roles to view students
              .requestMatchers(HttpMethod.GET, "/api/users/teachers").hasAnyAuthority("ROLE_TEACHER", "ROLE_STUDENT", "ROLE_ADMIN")
+             .requestMatchers(HttpMethod.GET, "/api/users/{id}").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
              .requestMatchers(HttpMethod.GET, "/api/users/teachers/{teacherId}/students").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN") // Allow teachers to view assigned students
              .requestMatchers(HttpMethod.PUT, "/api/users/students/{studentId}/assign/{teacherId}").hasAuthority("ROLE_TEACHER") // Allow only teachers to assign students
              .requestMatchers(HttpMethod.PUT, "/api/users/students/{studentId}/unassign").hasAuthority("ROLE_TEACHER") // Only teachers can unassign students
