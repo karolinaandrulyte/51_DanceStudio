@@ -1,6 +1,14 @@
 # Dance Studio Backend
 
-This is the backend for the Dance Studio management system. It handles user registration, authentication, and role-based access for Teachers and Students. It allows teachers to manage their profiles and student assignments.
+This is the backend for the Dance Studio management system. It handles user registration, authentication, and role-based access for Teachers and Students. It allows teachers to manage their profiles and student assignment. Students are allowed to see available teachers and their relevant information.
+
+### Technologies Used
+
+- **Spring Boot 3.3.3**: The backend framework for building the application.
+- **Spring Security**: Provides security features including JWT-based authentication.
+- **JPA (Java Persistence API)**: For data access and ORM (Object-Relational Mapping).
+- **MySQL Connector/J**: For connecting to the MySQL database.
+- **JUnit & Mockito**: For testing and ensuring code quality.
 
 ## Installation
 
@@ -10,19 +18,18 @@ To install and run the backend of the project locally, follow these steps:
 
 Ensure you have the following installed:
 
-- **Java 17 or higher**: Download Java from [Oracle's official page](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
-- **Maven**: Install Maven from [here](https://maven.apache.org/install.html).
-- **MySQL**: Install MySQL from [here](https://dev.mysql.com/downloads/installer/).
+- **Java 17 or higher**: The project requires Java 17 for compatibility with the Spring Boot framework. Download Java from [Oracle's official page](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+  
+- **Maven 3.8.6 or higher**: Maven is used for project management and dependency management. Install Maven from [here](https://maven.apache.org/install.html).
+
+- **MySQL 8.0 or higher**: This project uses MySQL as the database management system. Install MySQL from [here](https://dev.mysql.com/downloads/installer/).
 
 ### Clone the Repository
 
 First, clone the repository to your local machine using Git:
 ```bash
 git clone https://github.com/karolinaandrulyte/51_DanceStudio.git
-
-Navigate into the backend folder:
-```bash
-cd 51_DanceStudio
+```
 
 ### Database Setup
 
@@ -30,37 +37,72 @@ cd 51_DanceStudio
 
 2. **Create a Database**: Create a new database for your project. You can do this using the MySQL command line or a GUI tool like MySQL Workbench. 
 
-   ```sql
-   CREATE DATABASE dance_studio;
+```sql
+CREATE DATABASE dancestudio;
+```
    
-3. Update your application.properties file with your database credentials.
+### Update your application.properties
 
 Open the `application.properties` file located in `src/main/resources` and update the database connection settings as follows:
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/dancestudio
-spring.datasource.username=root
-spring.datasource.password=Labaisunkus1
+spring.datasource.username=<your-username>
+spring.datasource.password=<your-password>
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
 
 ### Build the Project
 
 To build the project, navigate to the root directory of the backend application in your terminal and run the following command:
 ```bash
 ./mvnw clean install
+```
 
 ### Running the Application
 After building the project, you can run the application using the following command:
 ```bash
 ./mvnw spring-boot:run
+```
 
 The application will start on the default port 8080. You can access it at http://localhost:8080.
 
 ## Usage
 
 1. **Sign Up**: Navigate to the signup page and fill in the required fields to create a new user account. You can choose to register as either a student or a teacher.
-  
-2. **Login**: Use your credentials to log in to the application. After logging in, you'll be directed to your respective dashboard based on your role.
+   - **Example Request**:
+     ```json
+     {
+       "username": "john_doe",
+       "email": "john@example.com",
+       "firstName": "John",
+       "lastName": "Doe",
+       "password": "securePassword123",
+       "isTeacher": true
+     }
+     ```
+   - **Example Response**:
+     ```json
+     {
+       "message": "User registered successfully!"
+     }
+     ```
 
+2. **Login**: Use your credentials to log in to the application. After logging in, you'll be directed to your respective dashboard based on your role.
+   - **Example Request**:
+     ```json
+     {
+       "username": "john_doe",
+       "password": "securePassword123"
+     }
+     ```
+   - **Example Response**:
+     ```json
+     {
+       "accessToken": "jwt-token-here",
+       "roles": ["ROLE_TEACHER"]
+     }
+     ```
+     
 3. **Student Dashboard**: As a student, you can view the list of available teachers along with their dance styles and schedules. You can also see your assigned teacher(s).
 
 4. **Teacher Dashboard**: As a teacher, you can view your assigned students and update your dance styles and descriptions. You can also manage your schedule.
@@ -121,3 +163,8 @@ Runs the unit tests for the project to ensure the code is functioning as expecte
 | POST        | `/students/{studentId}/assign/{teacherId}` | Assign a student to a teacher.                          | Yes           | Teacher             |
 | POST        | `/students/{studentId}/unassign/{teacherId}` | Unassign a student from a teacher.                     | Yes           | Teacher             |
 
+## Contact Information
+
+Karolina Andrulyte
+karolina.andrulyte@gmail.com
+https://github.com/karolinaandrulyte/51_DanceStudio
