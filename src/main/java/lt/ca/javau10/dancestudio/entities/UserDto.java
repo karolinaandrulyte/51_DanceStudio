@@ -152,6 +152,7 @@ public class UserDto implements UserDetails {
 		this.description = description;
 	}
 
+	@JsonIgnore // Prevent authorities from being serialized in JSON responses
 	@Override // serializable object to provide to JSON, returns an object to return authority
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles.stream()
