@@ -31,14 +31,14 @@ public class SimpleController {
 		return new ResponseEntity<>("Student page is accessible", HttpStatus.OK);	
 	}
 	
-	@PreAuthorize("hasAnyRole('STUDENT', 'TEACHER', 'ADMIN')")
-	@GetMapping("/user")
-	public ResponseEntity<String> getUserPage(){		
-		return new ResponseEntity<>("User page is accessible", HttpStatus.OK);	
-	}	
-	
-	@GetMapping("/all")
-	public ResponseEntity<String> getHomePage(){		
-		return new ResponseEntity<>("Home page is accessible", HttpStatus.OK);	
-	}
+//	@PreAuthorize("hasAnyRole('STUDENT', 'TEACHER', 'ADMIN')")
+//	@GetMapping("/user")
+//	public ResponseEntity<String> getUserPage(){		
+//		return new ResponseEntity<>("User page is accessible", HttpStatus.OK);	
+//	}	
+//	
+//	@GetMapping("/all")
+//	public ResponseEntity<String> getHomePage(){		
+//		return new ResponseEntity<>("Home page is accessible", HttpStatus.OK);	
+//	}
 }
